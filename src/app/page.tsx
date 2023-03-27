@@ -1,91 +1,46 @@
+"use client";
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  async function handleOAUTH() {
+    console.log(`${process.env.APPLICATION_CLIENT_ID}`);
+    alert("asdf");
+    const r = await fetch("https://login.microsoftonline.com/da464968-10f5-4b7b-8217-d6ab822e3949/oauth2/v2.0/authorize", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"client_id":"acb4a0b6-d923-4a4e-a6cf-38475558128d"})
+    }
+    );
+    const res = r.json();
+    console.log(res);
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
+    <>
+      <div
+        className=' w-2/3 h-screen flex flex-col items-center justify-evenly border-dashed border-r-2 border-indigo-200 '>
+        <span
+          className='text-5xl font-extrabold text-slate-600'>
+          {/* STATUS AUTOMATION */}
+        </span>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
+          src="./undraw_ideas.svg"
+          height="400"
+          width="400"
+          // priority
+          alt="image" />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div
+        className='w-1/3 h-screen flex flex-col items-center justify-center '>
+        <span
+          className='text-slate-500 mb-2'>
+          Please sign-in to continue.
+        </span>
+        <button
+          onClick={handleOAUTH}
+          className='w-1/2 bg-gradient-to-br from-blue-500 to-blue-400 p-4 rounded-lg hover:bg-gradient-to-br hover:from-blue-300 hover:to-blue-500 text-white'>Sign-in with Microsoft</button>
       </div>
-    </main>
+    </>
   )
 }
